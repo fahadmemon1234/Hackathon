@@ -1,12 +1,12 @@
 import React from "react";
-import Button from './Component/button/page'
+import Signup from "./Component/User/SignUp/page";
 
 
 function App(){
   return(
     <>
 
-<Button/>
+<Signup/>
 
     </>
   )

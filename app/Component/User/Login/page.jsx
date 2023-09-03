@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -36,7 +36,8 @@ const handleChange = (e) => {
 };
 
 const handleSubmit = () => {
-  const config = {
+  if(!user.email== "" && !user.password ==""){
+    const config = {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'http://localhost:3000/api/users/Login', // Adjust the API endpoint
@@ -52,6 +53,10 @@ const handleSubmit = () => {
           console.log(JSON.stringify(response.data));
           // alert(response.data.message);
           localStorage.setItem('user_id', response.data.data._id);
+          localStorage.setItem('name', response.data.data.firstname);
+          localStorage.setItem('lname', response.data.data.lastname);
+          localStorage.setItem('email', response.data.data.email);
+          
 
           toast.success(response.data.message, {
             position: "top-right",
@@ -73,6 +78,21 @@ const handleSubmit = () => {
       .catch((error) => {
           console.log(error);
       });
+  }
+
+  else{
+    toast.error('User Not Found', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+  
     };
 
   return (
